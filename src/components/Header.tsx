@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { getUserProfile } from '../features/auth/authSlice';
 import Loader from './Loader';
@@ -11,6 +11,7 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const canManageTasks = useCanManageTasks();
   const organizationName = getOrganizationName();
+  const location = useLocation();
 
   const { user, profile, isLoading } = useAppSelector((state) => state.auth);
 
@@ -99,13 +100,21 @@ const Header = () => {
             <div className="flex items-center space-x-8 ml-auto">
               <Link
                 to="login"
-                className="text-white hover:text-gray-200 transition-colors duration-200 font-medium"
+                className={
+                  location.pathname === '/login'
+                    ? "bg-white text-purple-600 hover:bg-gray-100 font-semibold py-2 px-6 rounded-full transition-all duration-200"
+                    : "text-white hover:text-gray-200 transition-colors duration-200 font-medium"
+                }
               >
                 Sign In
               </Link>
               <Link
                 to="register"
-                className="bg-white text-purple-600 hover:bg-gray-100 font-semibold py-2 px-6 rounded-full transition-all duration-200"
+                className={
+                  location.pathname === '/register'
+                    ? "bg-white text-purple-600 hover:bg-gray-100 font-semibold py-2 px-6 rounded-full transition-all duration-200"
+                    : "text-white hover:text-gray-200 transition-colors duration-200 font-medium"
+                }
               >
                 Create an Account
               </Link>
