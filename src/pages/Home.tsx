@@ -19,7 +19,7 @@ const Home: React.FC = () => {
           >
             Supercharge your workflow with
             <span className="block text-purple-400 mt-2">
-              React & FastAPI Kanban
+              React & FastAPI Kanbanabc
             </span>
           </motion.h1>
 
