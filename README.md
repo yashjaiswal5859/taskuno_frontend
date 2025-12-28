@@ -130,7 +130,7 @@ TaskUno is a comprehensive project management platform designed to help teams st
 
 - Node.js (v14 or higher)
 - npm or yarn
-- Backend API running (see [TaskUno Backend](https://github.com/yourusername/TaskUno_Backend))
+- Backend API running (see [TaskUno Backend](https://task-uno.duckdns.org))
 
 ### Installation
 
