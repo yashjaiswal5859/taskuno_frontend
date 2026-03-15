@@ -370,4 +370,4 @@ For support, email yashjaiswal88542@gmail.com or open an issue in the repository
 
 ---
 
-**Made with ❤️ by Yash Jaiswal**
+**Made with ❤️ by Yash Jaiswal** 
