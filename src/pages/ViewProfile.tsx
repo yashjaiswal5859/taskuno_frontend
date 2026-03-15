@@ -10,7 +10,7 @@ const ViewProfile: React.FC = () => {
   const dispatch = useAppDispatch();
   const { profile, user, isLoading } = useAppSelector((state) => state.auth);
   const [developers, setDevelopers] = useState<OrganizationMember[]>([]);
-  const [isLoadingOrg, setIsLoadingOrg] = useState<boolean>(false);
+  const [, setIsLoadingOrg] = useState<boolean>(false);
   const [userFromStorage, setUserFromStorage] = useState(getUser());
 
   // First, try to get user from local storage
@@ -55,7 +55,6 @@ const ViewProfile: React.FC = () => {
 
   // Priority: local storage > Redux profile > Redux user
   const displayUser = userFromStorage || profile || user?.user;
-  const orgId = displayUser?.organization_id || getOrganizationId();
   const orgName = displayUser?.organization_name || getOrganizationName();
 
   // Find developer in organization list

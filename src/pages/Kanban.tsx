@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { getTasks, updateTask } from '../features/tasks/taskSlice';
 import { Task } from '../types';
 import WorkflowChart from '../components/WorkflowChart';
-import { useCanManageTasks } from '../utils/roleCheck';
 import { getUser, getRole } from '../utils/storage';
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
@@ -39,12 +38,11 @@ const Kanban: React.FC = () => {
   } | null>(null);
   const [statusChangeReason, setStatusChangeReason] = useState<string>('');
 
-  const { tasks, isError, message, isSuccess } = useAppSelector(
+  const { tasks } = useAppSelector(
     (state) => state.taskData
   );
 
   const dispatch = useAppDispatch();
-  const canManageTasks = useCanManageTasks();
   
   // Get current user ID and role from local storage
   const currentUser = getUser();

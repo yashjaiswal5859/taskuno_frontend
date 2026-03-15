@@ -1,5 +1,4 @@
 import axiosInstance from '../../utils/axiosInterceptor';
-import { AxiosError } from 'axios';
 import { Project, ProjectCreate, ProjectUpdate } from '../../types';
 
 const API_URL = '/project/';
@@ -9,12 +8,7 @@ const createProject = async (projectData: ProjectCreate): Promise<Project | unde
   try {
     const response = await axiosInstance.post<Project>(API_URL, projectData);
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Something went wrong';
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    }
+  } catch {
     return undefined;
   }
 };
@@ -24,12 +18,7 @@ const getProjects = async (): Promise<Project[] | undefined> => {
   try {
     const response = await axiosInstance.get<Project[]>(API_URL);
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Something went wrong';
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    }
+  } catch {
     return undefined;
   }
 };
@@ -39,12 +28,7 @@ const getProject = async (projectId: number): Promise<Project | undefined> => {
   try {
     const response = await axiosInstance.get<Project>(API_URL + projectId);
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Something went wrong';
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    }
+  } catch {
     return undefined;
   }
 };
@@ -55,12 +39,7 @@ const updateProject = async (data: ProjectUpdate): Promise<Project | undefined> 
     // Extract the ID from the data payload
     const response = await axiosInstance.patch<Project>(API_URL + data.id, data);
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Something went wrong';
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    }
+  } catch {
     return undefined;
   }
 };
@@ -69,12 +48,8 @@ const updateProject = async (data: ProjectUpdate): Promise<Project | undefined> 
 const deleteProject = async (projectId: number): Promise<void> => {
   try {
     await axiosInstance.delete(API_URL + projectId);
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Something went wrong';
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    }
+  } catch {
+    // ignored
   }
 };
 

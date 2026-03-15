@@ -1,5 +1,4 @@
 import axiosInstance from '../../utils/axiosInterceptor';
-import { AxiosError } from 'axios';
 import { User, Task } from '../../types';
 
 // API Gateway base URL
@@ -14,14 +13,7 @@ const getUsers = async (): Promise<User[] | undefined> => {
     // If this endpoint doesn't exist, it will need to be added to auth-service
     const response = await axiosInstance.get<User[]>(AUTH_API_URL + 'users');
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Something went wrong';
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    } else if (error.response?.status === 404) {
-      errorMessage = 'Users endpoint not found. This feature may need to be implemented in the backend.';
-    }
+  } catch {
     return undefined;
   }
 };
@@ -31,12 +23,7 @@ const getTasks = async (): Promise<Task[] | undefined> => {
   try {
     const response = await axiosInstance.get<Task[]>(TASK_API_URL);
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Something went wrong';
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    }
+  } catch {
     return undefined;
   }
 };
@@ -45,12 +32,8 @@ const getTasks = async (): Promise<Task[] | undefined> => {
 const deleteTask = async (taskId: number): Promise<void> => {
   try {
     await axiosInstance.delete(TASK_API_URL + taskId);
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Something went wrong';
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    }
+  } catch {
+    // ignored
   }
 };
 
@@ -64,14 +47,8 @@ const deleteTasks = async (): Promise<void> => {
     if (response) {
       // Tasks deleted successfully
     }
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Something went wrong';
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    } else if (error.response?.status === 404) {
-      errorMessage = 'Delete all tasks endpoint not found. This feature may need to be implemented in the backend.';
-    }
+  } catch {
+    // ignored
   }
 };
 

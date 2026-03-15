@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import adminService from './adminService';
-import { User, Task, AdminState, RootState } from '../../types';
+import { User, Task, AdminState } from '../../types';
 
 const initialState: AdminState = {
   users: [],

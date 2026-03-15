@@ -2,6 +2,7 @@ import axiosInstance from '../../utils/axiosInterceptor';
 import { AxiosError } from 'axios';
 import { Task, TaskCreate, TaskUpdate } from '../../types';
 
+
 const API_URL = '/task/';
 
 // Create new task
@@ -9,12 +10,7 @@ const createTask = async (taskData: TaskCreate): Promise<Task | undefined> => {
   try {
     const response = await axiosInstance.post<Task>(API_URL, taskData);
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Something went wrong';
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    }
+  } catch {
     return undefined;
   }
 };
@@ -24,12 +20,7 @@ const getTasks = async (): Promise<Task[] | undefined> => {
   try {
     const response = await axiosInstance.get<Task[]>(API_URL);
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Something went wrong';
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    }
+  } catch {
     return undefined;
   }
 };
@@ -39,12 +30,7 @@ const getTask = async (taskId: number): Promise<Task | undefined> => {
   try {
     const response = await axiosInstance.get<Task>(API_URL + taskId);
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Something went wrong';
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    }
+  } catch {
     return undefined;
   }
 };
@@ -78,12 +64,8 @@ const updateTask = async (data: TaskUpdate): Promise<Task | undefined> => {
 const deleteTask = async (taskId: number): Promise<void> => {
   try {
     await axiosInstance.delete(API_URL + taskId);
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Something went wrong';
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    }
+  } catch {
+    // ignored
   }
 };
 

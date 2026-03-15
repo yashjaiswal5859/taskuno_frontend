@@ -45,15 +45,7 @@ const login = async (userData: LoginRequest): Promise<AuthResponse | undefined> 
       setAuthData(response.data);
     }
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = "Something went wrong";
-    if (error.response?.status === 400) {
-      errorMessage = error.response.data?.detail || errorMessage;
-    }
-    if (error.response?.status === 404) {
-      errorMessage = error.response.data?.detail || errorMessage;
-    }
+  } catch {
     return undefined;
   }
 };
@@ -70,15 +62,9 @@ const getUserProfile = async (): Promise<User | undefined> => {
     return response.data;
   } catch (err) {
     const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = "Something went wrong";
     if (error.response?.status === 401) {
-      errorMessage = error.response.data?.detail || errorMessage;
       clearAuthData();
-      // redirect to login
       window.location.href = "/login";
-    }
-    if (error.response?.status === 404) {
-      errorMessage = error.response.data?.detail || errorMessage;
     }
     return undefined;
   }
@@ -91,8 +77,7 @@ const refreshToken = async (refreshToken: string): Promise<TokenResponse | undef
       refresh_token: refreshToken,
     });
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
+  } catch {
     clearAuthData();
     window.location.href = "/login";
     return undefined;

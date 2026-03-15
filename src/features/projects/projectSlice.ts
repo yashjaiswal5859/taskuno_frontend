@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import projectService from './projectService';
-import { Project, ProjectCreate, ProjectUpdate, ProjectState, RootState } from '../../types';
+import { Project, ProjectCreate, ProjectUpdate, ProjectState } from '../../types';
 
 const initialState: ProjectState = {
   projects: [],

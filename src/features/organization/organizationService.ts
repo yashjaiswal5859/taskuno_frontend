@@ -14,12 +14,7 @@ const getAllOrganizations = async (): Promise<Organization[] | undefined> => {
   try {
     const response = await axiosInstance.get<Organization[]>(API_URL);
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Failed to fetch organizations';
-    if (error.response?.data?.detail) {
-      errorMessage = error.response.data.detail;
-    }
+  } catch {
     return undefined;
   }
 };
@@ -29,15 +24,7 @@ const getOrganizationChart = async (): Promise<OrganizationChart | undefined> =>
   try {
     const response = await axiosInstance.get<OrganizationChart>(API_URL + 'chart');
     return response.data;
-  } catch (err) {
-    const error = err as AxiosError<{ detail?: string }>;
-    let errorMessage = 'Failed to fetch organization chart';
-    if (error.response?.data?.detail) {
-      errorMessage = error.response.data.detail;
-    }
-    if (error.response?.status === 401) {
-      errorMessage = 'Unauthorized access, please login again.';
-    }
+  } catch {
     return undefined;
   }
 };
